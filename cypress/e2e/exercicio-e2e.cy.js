@@ -21,27 +21,24 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         })
     });
 
-    it('Adicionando Produto nº 1 ao carrinho.   ', () => {
+    it('Realizando processo completo de compra. ', () => {
         produtosPage.buscarProduto('Ajax Full-Zip Sweatshirt')
         produtosPage.addProduto()
-    });
+        cy.get('.woocommerce-message').should('exist')
 
-    it('Adicionando Produto nº 2 ao carrinho', () => {
         produtosPage.buscarProduto('Aether Gym Pant')
         produtosPage.addNovoProd('34', 'Brown', 7 )
-    });
+        cy.get('.woocommerce-message').should('exist')
     
-    it('Adicionando Produto nº 3 ao carrinho', () => {
         produtosPage.srcAddProd('Aero Daily Fitness Tee', 'S', 'Yellow', 2)
-    });
+        cy.get('.woocommerce-message').should('exist')
     
-    it('Adicionando Produto nº 4 ao carrinho', () => {
         cy.fixture('produto').then((dados) => {
             produtosPage.srcAddProd(dados.nomeProduto, dados.tamanho, dados.cor, dados.qtd)
         })
-    });
+        cy.get('.woocommerce-message').should('exist')
 
-    it('Realizando checkout / Finalizando conta', () => {
+
         cy.fixture('dadosCheckout').then((checkout) => {
             checkoutPage.dadosCheckout(
                 checkout.nome,
